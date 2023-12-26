@@ -40,7 +40,7 @@ A word can be read by extracting each character from the number plate, passing i
 
 ### Filtering characters
 
-One similarity with every number plate is that all leters are black. Therefore, when getting an image of the number plate, we can keep the black pixels, and change everything else to white.
+One similarity with every number plate is that all leters are black. Therefore, when getting an image of the number plate we can keep the black pixels and change everything else to white.
 
 ### Extracting characters and predicting words
 
