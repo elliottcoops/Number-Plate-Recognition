@@ -12,7 +12,7 @@ This repository contains a number plate reader using a CNN trained from scratch 
 
 Neural network is trained on the standard OCR dataset which contains 50k images of characters.
 
-In addition I augment the data 5 times per image with a mix of flipping, rotation and zooming.
+In addition, data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k
 
 ### Constants
 
