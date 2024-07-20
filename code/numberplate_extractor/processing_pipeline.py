@@ -74,8 +74,10 @@ class ProcessingPipeline:
 
     def apply_pipeline(self, image):
         """
-        Apply all stages of pipeline to all images in the input directory
-        Write the images back to output folder in the relevant subfolders
+        Apply all stages of pipeline to the image
+
+        Parameters:
+        image (np.ndarray): Image to be processed
         """
 
         # Convert to grey colour space
@@ -98,10 +100,25 @@ class ProcessingPipeline:
         return 255-opening
     
     def find_sorted_contours(self, processed_numberplate):
+        """
+        Find contous (chars in the numberplate) and sort the in order of x coordinate
+        
+        Parameters:
+        processed_numberplate (np.ndarray): Binary representation of extracted numberplate
+        """
+
         contours, _ = cv.findContours(processed_numberplate, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
         contours = sorted(contours, key=lambda c: cv.boundingRect(c)[0])
         return contours
     
     def crop_numberplate_from_original(self, image, xmin, ymin, xmax, ymax):
+        """
+        Crop the numberplate from the original image
+        
+        Parameters:
+        image (np.ndarray): Original image to crop numberplate from
+        xmin, ymin, xmax, ymax (int): Coordinates of bounding box found
+        """
+        
         numberplate = image.crop((xmin, ymin, xmax, ymax))
         return np.array(numberplate)
