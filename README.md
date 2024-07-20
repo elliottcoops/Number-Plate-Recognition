@@ -14,7 +14,7 @@ The model for number plate extraction can be found [here](https://huggingface.co
 
 ### Extraction
 
-The model finds a bounding box of what it thinks is a number plate. With a set confidence level, we can obtain the bounding box predicted by the model, and extract the number plate from the original image
+The model finds a bounding box of what it thinks is a number plate. With a set confidence level, we can obtain the bounding box predicted by the model, and extract the number plate from the original image.
 
 ![Original](docs/original.png) ![Extracted](docs/extracted.png)
 
