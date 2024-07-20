@@ -6,7 +6,7 @@ This repository contains a number plate reader, using a YOLO model for license p
 
 ![example_recognition](docs/example_reading.png)
 
-## How to use
+## How to use
 
 Assuming you are in the `Number-Plate-Recognition` directory
 
