@@ -19,7 +19,7 @@ Assuming you are in the `Number-Plate-Recognition` directory
 
 The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Live Once) which is a deep CNN. 
 
-The model for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on the hugging face and imported using the transformers module.
+The model for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face and imported using the transformers module.
 
 ### Extraction
 
@@ -47,9 +47,9 @@ Once we have the characters, we can feed each one into the model, obtain the pre
 
 ### Training
 
-Neural network is trained on the standard OCR dataset which contains 50k images of characters.
+The Neural network is trained on the standard OCR dataset which contains 50k images of characters.
 
-In addition, data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k
+The training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k
 
 ### Constants
 
@@ -61,7 +61,7 @@ Constants used during training:
 
 ### Model evaluation
 
-After training, the test set attains an accuracy of 98.7%
+After training, the test set attains an accuracy of 98.7%.
 
 Looking at the loss and accuracy per epoch we see that there are no signs of overfitting:
 
