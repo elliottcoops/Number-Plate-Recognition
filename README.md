@@ -6,6 +6,15 @@ This repository contains a number plate reader, using a YOLO model for license p
 
 ![example_recognition](docs/example_reading.png)
 
+## How to use
+
+Assuming you are in the `Number-Plate-Recognition` directory
+
+1. Create a Python virtual enviroment using `python3 -m venv venv`
+2. Activate venv using `source venv/bin/activate` for macos or `\venv\activate` for windows
+3. Install libraries using `pip install -r requirements.txt`
+4. Run `code_walkthrough.ipynb` or `multi_example.ipynb` in code directory
+
 ## Detecting a number plate
 
 The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Live Once) which is a deep CNN. 
@@ -30,7 +39,7 @@ One similarity among all number plates is that the letters are black. Therefore,
 
 ### Extracting characters and predicting words
 
-To extract a character, we can use the contours method from OpenCV, which identifies foreground objects within an image. This method creates a bounding box around each character, allowing us to extract that portion of the image.
+To extract a character, we can use the `contours` method from OpenCV, which identifies foreground objects within an image. This method creates a bounding box around each character, allowing us to extract that portion of the image.
 
 Once we have the characters, we can feed each one into the model, obtain the predictions, and concatenate them into a string.
 
