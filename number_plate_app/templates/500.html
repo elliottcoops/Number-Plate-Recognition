@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Server error{% endblock %}
+
+{% block content %}
+    <h1>No number plate detected</h1>
+    <br>
+    <a href="{{ url_for('upload_file') }}"><button class="btn btn-primary btn-lg">Upload another image</button></a>
+{% endblock %}

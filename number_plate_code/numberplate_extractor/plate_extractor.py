@@ -51,6 +51,10 @@ class PlateExtractor:
         # Get list of boxes and lables to keep
         boxes = output_dict["boxes"][keep].tolist()
         labels = output_dict["labels"][keep].tolist()
+
+        # Raise exception if no number plate has been detected
+        if len(boxes) == 0:
+            raise Exception("No number plate detected")
         
         if id2label is not None:
             labels = [id2label[x] for x in labels]

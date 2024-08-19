@@ -43,7 +43,6 @@ def upload_file():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
-        # Read the number plate of uploaded image
         plate_path, seg_path, cntr_path, plate_text = image_handler.read_number_plate(filename)
 
         # Redirect to the uploaded_file app route with each stage of the pipeline and the extracted plate
@@ -52,6 +51,10 @@ def upload_file():
 
     # Remain on the same page     
     return render_template('upload.html')
+
+@app.errorhandler(Exception)
+def detection_error(e):
+    return render_template('500.html')
 
 @app.route('/uploads/<original_path>/<plate_path>/<seg_path>/<cntr_path>/<plate_text>')
 def uploaded_file(original_path, plate_path, seg_path, cntr_path, plate_text):

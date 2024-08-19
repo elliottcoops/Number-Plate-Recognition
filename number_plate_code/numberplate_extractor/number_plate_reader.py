@@ -27,6 +27,7 @@ class NumberPlateReader:
         numberplate_prediction = self.plate_extractor.make_prediction(image)
 
         # Get the bounding box of the detected plate
+
         xmin, ymin, xmax, ymax = self.plate_extractor.get_bounding_box(numberplate_prediction)
 
         # Get the image as an np array

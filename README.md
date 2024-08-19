@@ -2,18 +2,25 @@
 
 ## About
 
-This repository contains a number plate reader, using a YOLO model for license plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
+This repository contains a number plate reader with a flask app, using a YOLO model for license plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
 
 ![example_recognition](docs/example_reading.png)
 
-## How to use
+## How to setup
 
 Assuming you are in the `Number-Plate-Recognition` directory
 
 1. Create a Python virtual enviroment using `python3 -m venv venv`
-2. Activate venv using `source venv/bin/activate` for macos or `\venv\activate` for windows
+2. Activate venv using `source venv/bin/activate` for macos or `venv\Scripts\activate` for windows
 3. Install libraries using `pip install -r requirements.txt`
-4. Run `code_walkthrough.ipynb` or `multi_example.ipynb` in code directory
+
+## Flask app
+
+If you want to run the interactive flask app, navigate to the `number_plate_app` directory
+
+1. Run `python app.py` to launch the app
+
+
 
 ## Detecting a number plate
 
