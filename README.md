@@ -18,12 +18,13 @@ Assuming you are in the `Number-Plate-Recognition` directory
 
 If you want to run the interactive flask app, navigate to the `number_plate_app` directory
 
-1. Run `python app.py` to launch the app
-2. Choose an image with a number plate in to be recognised
+1. Run `python app.py` to locally host the app
+2. Head to `http://127.0.0.1:5000` in any browser to load 
+3. Choose an image with a number plate in to be recognised
 
 ![Example upload](docs/example_upload.png)
 
-3. Upload the image and each stage of the recognition process is shown
+4. Upload the image and each stage of the recognition process is shown
 
 ![Example detection](docs/example_detection.png)
 
