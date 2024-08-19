@@ -36,6 +36,7 @@ If you want to walkthrough the code and see how well it performs on multiple exa
 2. Add any test images to `example_data`
 3. Run cells and analyse how well it perfroms
 
+![Example notebook](docs/notebook_run.png)
 
 ## Detecting a number plate
 
