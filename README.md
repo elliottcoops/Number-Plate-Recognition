@@ -19,6 +19,13 @@ Assuming you are in the `Number-Plate-Recognition` directory
 If you want to run the interactive flask app, navigate to the `number_plate_app` directory
 
 1. Run `python app.py` to launch the app
+2. Choose an image with a number plate in to be recognised
+
+![Example upload](docs/example_upload.png)
+
+3. Upload the image and each stage of the recognition process is shown
+
+![Example detection](docs/example_detection.png)
 
 
 
@@ -40,15 +47,19 @@ A word can be read by extracting each character from the number plate, passing i
 
 ### Filtering characters
 
-One similarity among all number plates is that the letters are black. Therefore, after applying image processing techniques such as bilateral filtering, gamma correction, inversion, and Otsu thresholding, we can create a binary image with the letters as the foreground and everything else as the background.
+One similarity among all number plates is that the letters are black. Therefore, after applying image processing techniques such as edge sharpening using the Laplacian operator and Otsu thresholding, we can create a binary image with the characters as the foreground and everything else as the background.
 
-![Original](docs/processed.png)
+![Processed](docs/processed.png)
 
 ### Extracting characters and predicting words
 
 To extract a character, we can use the `contours` method from OpenCV, which identifies foreground objects within an image. This method creates a bounding box around each character, allowing us to extract that portion of the image.
 
+![Contours](docs/contours.png)
+
 Once we have the characters, we can feed each one into the model, obtain the predictions, and concatenate them into a string.
+
+![Prediction](docs/prediction.png)
 
 ## Character recognition
 

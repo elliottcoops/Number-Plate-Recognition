@@ -40,9 +40,9 @@ class ImageHandler:
         images (list(np.ndarray)): List of images to be uploaded
         """
 
-        plate_path = self.write_image("number_plate.jpeg", cv.cvtColor(images[0], cv.COLOR_BGR2RGB))
+        plate_path = self.write_image("number_plate.jpeg", images[0])
         seg_path = self.write_image("segmented_number_plate.jpeg", images[1])
-        cntr_path = self.write_image("cntr_plate.jpeg", cv.cvtColor(images[2], cv.COLOR_BGR2RGB))
+        cntr_path = self.write_image("cntr_plate.jpeg", images[2])
 
         return plate_path, seg_path, cntr_path
     
