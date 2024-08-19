@@ -4,7 +4,7 @@
 
 This repository contains a number plate reader with a flask app, using a YOLO model for license plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
 
-![example_recognition](docs/example_reading.png)
+![example_recognition](docs/example_detection.png)
 
 ## How to setup
 
