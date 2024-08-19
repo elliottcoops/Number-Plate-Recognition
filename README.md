@@ -2,7 +2,7 @@
 
 ## About
 
-This repository contains a number plate reader with a flask app, using a YOLO model for license plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
+This repository contains a number plate reader with a Flask app, using a YOLO model for number plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
 
 ![example_recognition](docs/example_detection.png)
 
@@ -32,7 +32,7 @@ If you want to run the interactive flask app, navigate to the `number_plate_app`
 
 ## Detecting a number plate
 
-The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Live Once) which is a deep CNN. 
+The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Look Once) which is a deep CNN. 
 
 The model for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face and imported using the transformers module.
 
