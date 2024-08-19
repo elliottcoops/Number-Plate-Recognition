@@ -8,7 +8,7 @@ This repository contains a number plate reader with a Flask app, using a YOLO mo
 
 ## How to setup
 
-Assuming you are in the `Number-Plate-Recognition` directory
+Assuming you are in the `Number-Plate-Recognition` directory.
 
 1. Create a Python virtual enviroment using `python3 -m venv venv`
 2. Activate venv using `source venv/bin/activate` for macos or `venv\Scripts\activate` for windows
@@ -16,7 +16,7 @@ Assuming you are in the `Number-Plate-Recognition` directory
 
 ## Flask app
 
-If you want to run the interactive flask app, navigate to the `number_plate_app` directory
+If you want to run the interactive flask app, navigate to the `number_plate_app` directory.
 
 1. Run `python app.py` to locally host the app
 2. Head to `http://127.0.0.1:5000` in any browser to load 
@@ -27,7 +27,6 @@ If you want to run the interactive flask app, navigate to the `number_plate_app`
 4. Upload the image and each stage of the recognition process is shown
 
 ![Example detection](docs/example_detection.png)
-
 
 
 ## Detecting a number plate
@@ -68,7 +67,7 @@ Once we have the characters, we can feed each one into the model, obtain the pre
 
 The Neural network is trained on the standard OCR dataset which contains 50k images of characters.
 
-The training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k
+The training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k.
 
 ### Constants
 
