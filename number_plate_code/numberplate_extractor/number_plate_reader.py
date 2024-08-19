@@ -1,6 +1,6 @@
 
-from number_plate_code.numberplate_extractor.plate_extractor import PlateExtractor
-from number_plate_code.numberplate_extractor.character_extractor import CharacterExtraction
+from numberplate_extractor.plate_extractor import PlateExtractor
+from numberplate_extractor.character_extractor import CharacterExtraction
 
 """
 Read the number plate of vehicle in an image
@@ -51,7 +51,7 @@ class NumberPlateReader:
         cntrs = self.character_extractor.find_contours(seg_number_plate)
         
         # Extract each individual character from the number plate
-        extracted_chars, plate = self.character_extractor.extract_characters(cntrs, seg_number_plate, number_plate)
+        extracted_chars, cntr_plate = self.character_extractor.extract_characters(cntrs, seg_number_plate, number_plate)
 
         # Read each character and place into string
         plate_reading = self.character_extractor.read_number_plate(extracted_chars)
@@ -59,4 +59,4 @@ class NumberPlateReader:
         if not each_stage:
             return plate_reading
 
-        return plate_reading, seg_number_plate, plate
+        return plate_reading, seg_number_plate, cntr_plate
