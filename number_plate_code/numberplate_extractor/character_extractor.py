@@ -6,8 +6,7 @@ from keras.models import load_model
 Extract and read characters from a number plate
 """
 class CharacterExtraction:
-
-    def __init__(self, character_model_path = "../model/my_model.h5", labels = None):
+    def __init__(self, character_model_path = "../number_plate_code/model/my_model.h5", labels = None):
         """
         Load character recognition model and define labels for model output
 
@@ -15,6 +14,7 @@ class CharacterExtraction:
         character_model_path (str): Path to character model stored locally
         labels (list): List of outputs for the character detection model    
         """
+        print(character_model_path)
          
         self.character_model = load_model(character_model_path)
 
@@ -91,7 +91,7 @@ class CharacterExtraction:
         
         return dimensions
     
-    def extract_characters(self, cntrs, segmented_chars):
+    def extract_characters(self, cntrs, segmented_chars, number_plate):
         """
         Extract each individual character on the number plate
         
@@ -105,18 +105,27 @@ class CharacterExtraction:
        
         extracted_characters = []
 
+        # Copy of number plate to draw contours onto
+        cntr_plate = number_plate.copy()
+        
+        # Resize to keep dimensions the same as segmented plate
+        cntr_plate = cv.resize(cntr_plate, (segmented_chars.shape[1], segmented_chars.shape[0]))
+
         for cntr in cntrs:
             # Get the bounding rectangle of the contour around the character
-            intX, intY, intWidth, intHeight = cv.boundingRect(cntr)
+            x, y, w, h = cv.boundingRect(cntr)
             
             # Check the contour falls within the boundaries of estimations
-            if intWidth > lower_width and intWidth < upper_width and intHeight > lower_height and intHeight < upper_height :
+            if w > lower_width and w < upper_width and h > lower_height and h < upper_height :
                 # Extract the character from the number plate
-                char = segmented_chars[intY:intY+intHeight, intX:intX+intWidth]
+                char = segmented_chars[y:y+h, x:x+w]
                 
                 extracted_characters.append(char)
+
+                # Draw contour onto copied image
+                cv.rectangle(cntr_plate, (x, y), (x + w, y + h), (0, 255, 0), 2)
     
-        return extracted_characters
+        return extracted_characters, cntr_plate
     
     def read_number_plate(self, extracted_chars):
         """
@@ -160,7 +169,7 @@ class CharacterExtraction:
         # Otsu thresholding to segment characters
         _, img_binary_lp = cv.threshold(sharpened_image, 240, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
 
-        # Attempt to remove background noise 
+        # Attempt to remove binary background noise 
         img_binary_lp = cv.erode(img_binary_lp, (7,7))
 
         # Make borders white
