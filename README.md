@@ -22,6 +22,12 @@ If you want to run the interactive Flask app, navigate to the `number_plate_app`
 2. Head to `http://127.0.0.1:5000` in any browser to load 
 3. Choose an image with a number plate in to be recognised
 
+![Example upload](docs/example_upload.png)
+
+4. Upload the image and each stage of the recognition process is shown
+
+![Example detection](docs/example_detection.png)
+
 ## Example notebook
 
 If you want to walkthrough the code and see how well it performs on multiple examples, navigate to the `number_plate_code` directory.
@@ -29,12 +35,6 @@ If you want to walkthrough the code and see how well it performs on multiple exa
 1. Open `example.ipynb`
 2. Add any test images to `example_data`
 3. Run cells and analyse how well it perfroms
-
-![Example upload](docs/example_upload.png)
-
-4. Upload the image and each stage of the recognition process is shown
-
-![Example detection](docs/example_detection.png)
 
 
 ## Detecting a number plate
