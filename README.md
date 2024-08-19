@@ -16,11 +16,19 @@ Assuming you are in the `Number-Plate-Recognition` directory.
 
 ## Flask app
 
-If you want to run the interactive flask app, navigate to the `number_plate_app` directory.
+If you want to run the interactive Flask app, navigate to the `number_plate_app` directory.
 
 1. Run `python app.py` to locally host the app
 2. Head to `http://127.0.0.1:5000` in any browser to load 
 3. Choose an image with a number plate in to be recognised
+
+## Example notebook
+
+If you want to walkthrough the code and see how well it performs on multiple examples, navigate to the `number_plate_code` directory.
+
+1. Open `example.ipynb`
+2. Add any test images to `example_data`
+3. Run cells and analyse how well it perfroms
 
 ![Example upload](docs/example_upload.png)
 
