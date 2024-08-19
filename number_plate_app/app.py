@@ -3,8 +3,9 @@ from config import Config
 import sys
 import os
 
-# Append parent directory to system path so we can access number plate classes 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Append number plate code directory to system path so we can access number plate classes 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../number_plate_code')))
+
 from image_handler import ImageHandler
 
 app = Flask(__name__)

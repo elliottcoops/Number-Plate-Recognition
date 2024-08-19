@@ -2,7 +2,7 @@ import cv2 as cv
 import os
 from PIL import Image
 import cv2 as cv
-from number_plate_code.numberplate_extractor.number_plate_reader import NumberPlateReader
+from numberplate_extractor.number_plate_reader import NumberPlateReader
 
 class ImageHandler:
 
