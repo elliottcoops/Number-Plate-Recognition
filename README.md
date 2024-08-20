@@ -40,11 +40,11 @@ If you want to walkthrough the code and see how well it performs on multiple exa
 
 ## ML data processing pipeline
 
-The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Look Once) which is a deep CNN. 
+The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Look Once) which is a deep CNN. The model used for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face.
 
 A number plate can be read by extracting each character from the number plate, passing it into a character recognition CNN model and then stringing together a word.
 
-The model for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face and imported using the transformers module.
+Each of these stages is explained in more detail below.
 
 ### Stage 1 - Plate extraction (YOLO)
 
@@ -65,16 +65,17 @@ To extract a character, we can use the `contours` method from OpenCV, which iden
 
 ![Contours](docs/contours.png)
 
-### Stage 4 - Character recognition (CNN, see below)
+### Stage 4 - Character recognition (CNN from scratch, see below)
+
 Once we have the characters, we can feed each one into the model, obtain the predictions, and concatenate them into a string.
 
 ![Prediction](docs/prediction.png)
 
-## CNN built from scratch for character recognition
+## CNN built from scratch for character recognition (See stage 4 above)
 
 ### Training
 
-The Neural network is trained on the standard [OCR dataset](https://www.kaggle.com/datasets/preatcher/standard-ocr-dataset) which contains 50k images of characters.
+The neural network is trained on the standard [OCR dataset](https://www.kaggle.com/datasets/preatcher/standard-ocr-dataset) which contains 50k images of characters.
 
 To increase the number of examples, the training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k.
 
