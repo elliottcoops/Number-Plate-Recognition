@@ -18,7 +18,7 @@ Assuming you are in the `Number-Plate-Recognition` directory.
 
 If you want to run the interactive Flask app, navigate to the `number_plate_app` directory.
 
-1. Run `python app.py` to locally host the app
+1. Run `python3 app.py` to locally host the app
 2. Head to `http://127.0.0.1:5000` in any browser to load 
 3. Choose an image with a number plate in to be recognised
 
@@ -38,45 +38,45 @@ If you want to walkthrough the code and see how well it performs on multiple exa
 
 ![Example notebook](docs/notebook_run.png)
 
-## Detecting a number plate
+## ML data processing pipeline
 
 The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Look Once) which is a deep CNN. 
 
+A number plate can be read by extracting each character from the number plate, passing it into a character recognition CNN model and then stringing together a word.
+
 The model for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face and imported using the transformers module.
 
-### Extraction
+### Stage 1 - Plate extraction (YOLO)
 
 The model finds a bounding box of what it thinks is a number plate. With a set confidence level, we can obtain the bounding box predicted by the model, and extract the number plate from the original image.
 
 ![Original](docs/original.png) ![Extracted](docs/extracted.png)
 
-## Reading a number plate
 
-A word can be read by extracting each character from the number plate, passing it into the character model and then stringing together a word.
-
-### Filtering characters
+### Stage 2 - Character segmentation (OpenCV)
 
 One similarity among all number plates is that the letters are black. Therefore, after applying image processing techniques such as edge sharpening using the Laplacian operator and Otsu thresholding, we can create a binary image with the characters as the foreground and everything else as the background.
 
 ![Processed](docs/processed.png)
 
-### Extracting characters and predicting words
+### Stage 3 - Character extraction (OpenCV)
 
 To extract a character, we can use the `contours` method from OpenCV, which identifies foreground objects within an image. This method creates a bounding box around each character, allowing us to extract that portion of the image.
 
 ![Contours](docs/contours.png)
 
+### Stage 4 - Character recognition (CNN, see below)
 Once we have the characters, we can feed each one into the model, obtain the predictions, and concatenate them into a string.
 
 ![Prediction](docs/prediction.png)
 
-## Character recognition
+## CNN built from scratch for character recognition
 
 ### Training
 
-The Neural network is trained on the standard OCR dataset which contains 50k images of characters.
+The Neural network is trained on the standard [OCR dataset](https://www.kaggle.com/datasets/preatcher/standard-ocr-dataset) which contains 50k images of characters.
 
-The training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k.
+To increase the number of examples, the training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k.
 
 ### Constants
 
