@@ -91,7 +91,7 @@ class CharacterExtraction:
         
         return dimensions
     
-    def extract_characters(self, cntrs, segmented_chars, number_plate):
+    def extract_characters(self, cntrs, segmented_chars):
         """
         Extract each individual character on the number plate
         
@@ -106,10 +106,10 @@ class CharacterExtraction:
         extracted_characters = []
 
         # Copy of number plate to draw contours onto
-        cntr_plate = number_plate.copy()
-        
-        # Resize to keep dimensions the same as segmented plate
-        cntr_plate = cv.resize(cntr_plate, (segmented_chars.shape[1], segmented_chars.shape[0]))
+        cntr_plate = segmented_chars.copy()
+
+        # Convert binary image to RGB to see drawn contours
+        cntr_plate = cv.cvtColor(cntr_plate, cv.COLOR_GRAY2RGB)
 
         for cntr in cntrs:
             # Get the bounding rectangle of the contour around the character

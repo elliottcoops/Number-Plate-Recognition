@@ -51,7 +51,7 @@ class NumberPlateReader:
         cntrs = self.character_extractor.find_contours(seg_number_plate)
         
         # Extract each individual character from the number plate
-        extracted_chars, cntr_plate = self.character_extractor.extract_characters(cntrs, seg_number_plate, number_plate)
+        extracted_chars, cntr_plate = self.character_extractor.extract_characters(cntrs, seg_number_plate)
 
         # Read each character and place into string
         plate_reading = self.character_extractor.read_number_plate(extracted_chars)
