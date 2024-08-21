@@ -94,6 +94,10 @@ Looking at the loss and accuracy per epoch we see that there are no signs of ove
 
 ![eval](docs/model_eval.png)
 
+The confusion matrix shows excellent results overall, however classes 0, 4, and 24 had misclassifications with numbers 0, 3, and letter P; adding more training data or augmentation could help improve accuracy.
+
+![cm](docs/cm.png)
+
 In addition, looking at a few test examples: 
 
 ![example_test](docs/character_example.png)
