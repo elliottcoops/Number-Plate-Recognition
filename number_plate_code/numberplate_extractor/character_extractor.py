@@ -6,7 +6,7 @@ from keras.models import load_model
 Extract and read characters from a number plate
 """
 class CharacterExtraction:
-    def __init__(self, character_model_path = "../number_plate_code/model/my_model.h5", labels = None):
+    def __init__(self, character_model_path = "../number_plate_code/model/character_recognition_model.h5", labels = None):
         """
         Load character recognition model and define labels for model output
 
