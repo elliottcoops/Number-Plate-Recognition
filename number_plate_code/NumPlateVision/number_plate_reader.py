@@ -1,7 +1,6 @@
 import numpy as np
-from number_plate_reader.number_plate_extractor import PlateExtractor
-from number_plate_reader.character_extractor import CharacterExtraction
-
+from NumPlateVision.number_plate_extractor import PlateExtractor
+from NumPlateVision.character_extractor import CharacterExtraction
 
 """
 Read the number plate of vehicle in an image

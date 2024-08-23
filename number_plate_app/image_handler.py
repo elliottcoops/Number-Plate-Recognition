@@ -1,8 +1,8 @@
 import cv2 as cv
 import os
 from PIL import Image
-import cv2 as cv
-from numberplate_extractor.number_plate_reader import NumberPlateReader
+import sys 
+from NumPlateVision.number_plate_reader import NumberPlateReader
 
 class ImageHandler:
 
