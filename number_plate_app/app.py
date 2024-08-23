@@ -17,7 +17,7 @@ app.config.from_object(Config)
 image_handler = ImageHandler(app.config["UPLOAD_FOLDER"])
 
 @app.route('/', methods=['GET', 'POST'])
-def upload_file():
+def upload_file(): 
     """
     Accept both GET and POST methods
     
@@ -54,7 +54,7 @@ def upload_file():
     return render_template('upload.html')
 
 @app.errorhandler(Exception)
-def detection_error(e):
+def detection_error(e) -> str:
     return render_template('500.html')
 
 @app.route('/uploads/<original_path>/<plate_path>/<seg_path>/<cntr_path>/<plate_text>')

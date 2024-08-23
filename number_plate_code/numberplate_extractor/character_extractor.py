@@ -21,7 +21,7 @@ class CharacterExtraction:
         if labels is None:
             self.labels = [str(i) for i in range(10)] + [chr(ord('A') + i) for i in range(26)]
 
-    def get_x_coordinate(self, contour):
+    def get_x_coordinate(self, contour) -> int:
         """
         Get the x coordinate of a detected contour
         
@@ -32,7 +32,7 @@ class CharacterExtraction:
         x, _, _, _ = cv.boundingRect(contour)
         return x
 
-    def preprocess_char(self, char):
+    def preprocess_char(self, char) -> np.ndarray:
         """
         Preprocess the character image to be passed into the model
 
@@ -58,7 +58,7 @@ class CharacterExtraction:
         return char
 
 
-    def find_contours(self, segmented_chars):
+    def find_contours(self, segmented_chars) -> :
         """
         Find contours (characters) in binary image
         
@@ -74,7 +74,7 @@ class CharacterExtraction:
 
         return cntrs
     
-    def get_dimension_estimation(self, number_plate):
+    def get_dimension_estimation(self, number_plate) -> list[int]:
         """
         Get the estimation dimension of a character on a number plate
         
@@ -91,7 +91,7 @@ class CharacterExtraction:
         
         return dimensions
     
-    def extract_characters(self, cntrs, segmented_chars):
+    def extract_characters(self, cntrs, segmented_chars) -> tuple[list[np.ndarray], np.ndarray]:
         """
         Extract each individual character on the number plate
         
@@ -127,7 +127,7 @@ class CharacterExtraction:
     
         return extracted_characters, cntr_plate
     
-    def read_number_plate(self, extracted_chars):
+    def read_number_plate(self, extracted_chars) -> str:
         """
         Read each detected character on the number plate and string together
         
@@ -147,7 +147,7 @@ class CharacterExtraction:
 
         return plate_reading
                     
-    def segment_characters(self, number_plate):
+    def segment_characters(self, number_plate) -> np.ndarray:
         """
         Segment characters and remove irrelevent background noise
         

@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+from PIL import Image
 from transformers import YolosFeatureExtractor, YolosForObjectDetection
 
 """
@@ -18,7 +19,7 @@ class PlateExtractor:
         self.feature_extractor = YolosFeatureExtractor.from_pretrained(license_model_path)
         self.model = YolosForObjectDetection.from_pretrained(license_model_path)
 
-    def make_prediction(self, img):
+    def make_prediction(self, img) -> list[dict[str]]:
         """
         Make prediction based on input image of vehicle
 
@@ -31,9 +32,10 @@ class PlateExtractor:
         outputs = self.model(**inputs)
         img_size = torch.tensor([tuple(reversed(img.size))])
         processed_outputs = self.feature_extractor.post_process(outputs, img_size)
+
         return processed_outputs[0]
 
-    def get_bounding_box(self, output_dict, threshold=0.5):
+    def get_bounding_box(self, output_dict, threshold=0.5) -> tuple[int, int, int, int]:
         """
         Get the physical bounding box of the license plate detected
         
@@ -64,7 +66,7 @@ class PlateExtractor:
             if label == 'license-plates':
                 return xmin, ymin, xmax, ymax
             
-    def get_extracted_numberplate(self, image, xmin, ymin, xmax, ymax):
+    def get_extracted_numberplate(self, image, xmin, ymin, xmax, ymax) -> Image:
         """
         Extract the numberplate from the original image as PIL Image
         
@@ -75,9 +77,10 @@ class PlateExtractor:
         """
 
         numberplate = image.crop((xmin, ymin, xmax, ymax))
+
         return numberplate
 
-    def get_extracted_numberplate_as_np(self, image, xmin, ymin, xmax, ymax):
+    def get_extracted_numberplate_as_np(self, image, xmin, ymin, xmax, ymax) -> np.ndarray:
         """
         Extract the numberplate from the original image as np array
         
@@ -88,4 +91,5 @@ class PlateExtractor:
         """
 
         numberplate = self.get_extracted_numberplate(image, xmin, ymin, xmax, ymax)
+
         return np.array(numberplate)

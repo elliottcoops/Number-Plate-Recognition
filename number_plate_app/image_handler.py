@@ -17,7 +17,7 @@ class ImageHandler:
         self.number_plate_reader = NumberPlateReader()
         self.upload_path = upload_path
 
-    def write_image(self, file_path, image):
+    def write_image(self, file_path, image) -> str:
         """
         Write image to upload folder server side
         
@@ -29,9 +29,10 @@ class ImageHandler:
 
         output_path = os.path.join(self.upload_path, file_path)
         cv.imwrite(output_path, image)
+
         return file_path
     
-    def write_images(self, images):
+    def write_images(self, images) -> tuple[str, str, str]:
         """
         Write images to upload folder server side
         
@@ -46,7 +47,7 @@ class ImageHandler:
 
         return plate_path, seg_path, cntr_path
     
-    def allowed_file(self, file_path, allowed_extensions):
+    def allowed_file(self, file_path, allowed_extensions) -> str:
         """
         Check if file is in the allowed extensions
         
@@ -57,7 +58,7 @@ class ImageHandler:
         return '.' in file_path and \
             file_path.rsplit('.', 1)[1].lower() in allowed_extensions
     
-    def read_number_plate(self, file_path):
+    def read_number_plate(self, file_path) -> tuple[str, str, str, str]:
         """
         Read the number plate of the given file path
         

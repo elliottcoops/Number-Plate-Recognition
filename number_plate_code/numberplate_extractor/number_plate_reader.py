@@ -1,6 +1,8 @@
 
+import numpy as np
 from numberplate_extractor.plate_extractor import PlateExtractor
 from numberplate_extractor.character_extractor import CharacterExtraction
+
 
 """
 Read the number plate of vehicle in an image
@@ -15,7 +17,7 @@ class NumberPlateReader:
         self.plate_extractor = PlateExtractor()
         self.character_extractor = CharacterExtraction()
 
-    def get_number_plate(self, image):
+    def get_number_plate(self, image) -> np.ndarray:
         """
         Get the number plate from a vehicle in image
         
@@ -35,7 +37,7 @@ class NumberPlateReader:
 
         return number_plate
 
-    def read_number_plate(self, number_plate, each_stage=False):
+    def read_number_plate(self, number_plate, each_stage=False) -> tuple[str, np.ndarray, np.ndarray]:
         """
         Extract and read the individual characters from the number plate
         
