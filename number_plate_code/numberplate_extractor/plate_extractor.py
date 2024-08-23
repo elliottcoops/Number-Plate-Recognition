@@ -13,24 +13,33 @@ class PlateExtractor:
         Load and initialise number plate detection model
 
         Parameters:
-        number_plate_model_path (str): Path to the number detection model in hugging face 
+            number_plate_model_path (str): Path to the number detection model in hugging face 
         """
 
         self.feature_extractor = YolosFeatureExtractor.from_pretrained(number_plate_model_path)
         self.model = YolosForObjectDetection.from_pretrained(number_plate_model_path)
 
-    def make_prediction(self, img) -> list[dict[str]]:
+    def make_prediction(self, original_image) -> dict[str]:
         """
-        Make prediction based on input image of vehicle
+        Get number plate from input image
 
         Parameters:
-        img (Image): PIL Image of the vehicle of the number plate to be detected
+            original_image (Image): PIL Image of the vehicle of the number plate to be detected
+
+        Returns:
+            dict[str]: Dictionary of the bounding boxes scores and labels predicted
         """
 
-        # Set input and tensors
-        inputs = self.feature_extractor(img, return_tensors="pt")
+        # Process image to suitable format for model (pytorch tensor)
+        inputs = self.feature_extractor(original_image, return_tensors="pt")
+        
+        # Pass the inputs through the model to get outputs
         outputs = self.model(**inputs)
-        img_size = torch.tensor([tuple(reversed(img.size))])
+        
+        # Compute the original image size and prepare for post processing
+        img_size = torch.tensor([tuple(reversed(original_image.size))])
+        
+        # Post process the raw model outputs and convert to usable results (json)
         processed_outputs = self.feature_extractor.post_process(outputs, img_size)
 
         return processed_outputs[0]
@@ -40,8 +49,11 @@ class PlateExtractor:
         Get the physical bounding box of the number plate detected
         
         Parameters:
-        output_dict (str): Prediction directory
-        threshold (float): Threshold of the confidence needed to label bounding box
+            output_dict (str): Prediction directory
+            threshold (float): Threshold of the confidence needed to label bounding box
+
+        Returns: 
+            tuple[int, int, int, int]: Tuple of x, y, w, h of the bounding box
         """
 
         # Get the id2label for the output layer
@@ -71,9 +83,11 @@ class PlateExtractor:
         Extract the numberplate from the original image as PIL Image
         
         Parameters: 
+            image (Image): Original image to be extracted from
+            xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
 
-        image (Image): Original image to be extracted from
-        xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
+        Returns:
+            Image: Number plate cropped from the original image
         """
 
         numberplate = image.crop((xmin, ymin, xmax, ymax))
@@ -85,9 +99,11 @@ class PlateExtractor:
         Extract the numberplate from the original image as np array
         
         Parameters: 
-
-        image (Image): Original image to be extracted from
-        xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
+            image (Image): Original image to be extracted from
+            xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
+        
+        Returns:
+            np.ndarray: Numpy array of number plate cropped from original image 
         """
 
         numberplate = self.get_extracted_numberplate(image, xmin, ymin, xmax, ymax)

@@ -11,7 +11,7 @@ class ImageHandler:
         Initialise number plate reader and upload path
 
         Parameters:
-        upload_path (str): Path of server side upload folder 
+            upload_path (str): Path of server side upload folder 
         """
         
         self.number_plate_reader = NumberPlateReader()
@@ -22,9 +22,12 @@ class ImageHandler:
         Write image to upload folder server side
         
         Parameters:
-        file_path (str): Image file path
-        upload_path (str): Upload dir path
-        image (np.ndarray): Image to be uploaded
+            file_path (str): Image file path
+            upload_path (str): Upload dir path
+            image (np.ndarray): Image to be uploaded
+        
+        Returns:
+            str: File path of image uploaded
         """
 
         output_path = os.path.join(self.upload_path, file_path)
@@ -37,8 +40,11 @@ class ImageHandler:
         Write images to upload folder server side
         
         Parameters:
-        upload_folder (str): Upload dir path
-        images (list(np.ndarray)): List of images to be uploaded
+            upload_folder (str): Upload dir path
+            images (list(np.ndarray)): List of images to be uploaded
+        
+        Returns:
+            tuple[str, str, str]: Normal, segmented and contour plate paths
         """
 
         plate_path = self.write_image("number_plate.jpeg", images[0])
@@ -47,12 +53,15 @@ class ImageHandler:
 
         return plate_path, seg_path, cntr_path
     
-    def allowed_file(self, file_path, allowed_extensions) -> str:
+    def allowed_file(self, file_path, allowed_extensions) -> bool:
         """
         Check if file is in the allowed extensions
         
         Parameters:
-        file_path (str): Path of file to be checked
+            file_path (str): Path of file to be checked
+        
+        Returns:
+            bool: Flag to see if the extension is allowed / is image
         """
 
         return '.' in file_path and \
@@ -63,7 +72,10 @@ class ImageHandler:
         Read the number plate of the given file path
         
         Parameters:
-        file_path (str): File path of image to read number plate from
+            file_path (str): File path of image to read number plate from
+        
+        Returns: 
+            tuple[str, str, str, str]: Original, segmented, contour plate paths and plate text
         """
 
         # Read image using PIL for transformers

@@ -1,4 +1,3 @@
-
 import numpy as np
 from numberplate_extractor.plate_extractor import PlateExtractor
 from numberplate_extractor.character_extractor import CharacterExtraction
@@ -22,14 +21,16 @@ class NumberPlateReader:
         Get the number plate from a vehicle in image
         
         Parameters:
-        image (np.ndarray): Image to extract plate from
+            image (np.ndarray): Image to extract plate from
+        
+        Returns:
+            np.ndarray: Extracted number plate from original image
         """
 
         # Make prediction from the original image
         numberplate_prediction = self.plate_extractor.make_prediction(image)
 
         # Get the bounding box of the detected plate
-
         xmin, ymin, xmax, ymax = self.plate_extractor.get_bounding_box(numberplate_prediction)
 
         # Get the image as an np array
@@ -42,8 +43,11 @@ class NumberPlateReader:
         Extract and read the individual characters from the number plate
         
         Parameters:
-        number_plate (np.ndarray): Number plate for characters to be extracted
-        each_stage (boolean): Flag to see each stage (original, numberplate, ...)
+            number_plate (np.ndarray): Number plate for characters to be extracted
+            each_stage (boolean): Flag to see each stage (original, numberplate, ...)
+        
+        Returns:
+            tuple[str, np.ndarray, np.ndarray]: Tuple of the plate reading, the segmented and contour detected number plate
         """
         
         # Segment the characters in the extracted number plate
