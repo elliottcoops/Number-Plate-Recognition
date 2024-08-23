@@ -80,9 +80,9 @@ class PlateExtractor:
             if label == 'license-plates':
                 return xmin, ymin, xmax, ymax
             
-    def get_extracted_numberplate(self, image, xmin, ymin, xmax, ymax) -> Image:
+    def get_extracted_number_plate(self, image, xmin, ymin, xmax, ymax) -> Image:
         """
-        Extract the numberplate from the original image as PIL Image
+        Extract the number plate from the original image as PIL Image
         
         Parameters: 
             image (Image): Original image to be extracted from
@@ -92,13 +92,13 @@ class PlateExtractor:
             Image: Number plate cropped from the original image
         """
 
-        numberplate = image.crop((xmin, ymin, xmax, ymax))
+        number_plate = image.crop((xmin, ymin, xmax, ymax))
 
-        return numberplate
+        return number_plate
 
-    def get_extracted_numberplate_as_np(self, image, xmin, ymin, xmax, ymax) -> np.ndarray:
+    def get_extracted_number_plate_as_np(self, image, xmin, ymin, xmax, ymax) -> np.ndarray:
         """
-        Extract the numberplate from the original image as np array
+        Extract the number plate from the original image as np array
         
         Parameters: 
             image (Image): Original image to be extracted from
@@ -108,6 +108,7 @@ class PlateExtractor:
             np.ndarray: Numpy array of number plate cropped from original image 
         """
 
-        numberplate = self.get_extracted_numberplate(image, xmin, ymin, xmax, ymax)
+        number_plate = self.get_extracted_number_plate(image, xmin, ymin, xmax, ymax)
+        number_plate_as_np = np.array(number_plate)
 
-        return np.array(numberplate)
+        return number_plate_as_np

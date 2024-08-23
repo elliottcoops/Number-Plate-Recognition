@@ -1,6 +1,6 @@
 import numpy as np
-from numberplate_extractor.plate_extractor import PlateExtractor
-from numberplate_extractor.character_extractor import CharacterExtraction
+from number_plate_reader.number_plate_extractor import PlateExtractor
+from number_plate_reader.character_extractor import CharacterExtraction
 
 
 """
@@ -28,13 +28,13 @@ class NumberPlateReader:
         """
 
         # Make prediction from the original image
-        numberplate_prediction = self.plate_extractor.make_prediction(image)
+        number_plate_prediction = self.plate_extractor.make_prediction(image)
 
         # Get the bounding box of the detected plate
-        xmin, ymin, xmax, ymax = self.plate_extractor.get_bounding_box(numberplate_prediction)
+        xmin, ymin, xmax, ymax = self.plate_extractor.get_bounding_box(number_plate_prediction)
 
         # Get the image as an np array
-        number_plate = self.plate_extractor.get_extracted_numberplate_as_np(image, xmin, ymin, xmax, ymax)
+        number_plate = self.plate_extractor.get_extracted_number_plate_as_np(image, xmin, ymin, xmax, ymax)
 
         return number_plate
 
@@ -44,7 +44,7 @@ class NumberPlateReader:
         
         Parameters:
             number_plate (np.ndarray): Number plate for characters to be extracted
-            each_stage (boolean): Flag to see each stage (original, numberplate, ...)
+            each_stage (boolean): Flag to see each stage (original, number plate, ...)
         
         Returns:
             tuple[str, np.ndarray, np.ndarray]: Tuple of the plate reading, the segmented and contour detected number plate
