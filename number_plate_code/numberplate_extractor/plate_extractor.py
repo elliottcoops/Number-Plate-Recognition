@@ -8,23 +8,23 @@ Extract number plates from images with vehicles in them
 """
 class PlateExtractor:
 
-    def __init__(self, license_model_path = 'nickmuchi/yolos-small-finetuned-license-plate-detection'):
+    def __init__(self, number_plate_model_path = 'nickmuchi/yolos-small-finetuned-license-plate-detection'):
         """
-        Load and initialise license plate detection model
+        Load and initialise number plate detection model
 
         Parameters:
-        license_model_path (str): Path to the license detection model in hugging face 
+        number_plate_model_path (str): Path to the number detection model in hugging face 
         """
 
-        self.feature_extractor = YolosFeatureExtractor.from_pretrained(license_model_path)
-        self.model = YolosForObjectDetection.from_pretrained(license_model_path)
+        self.feature_extractor = YolosFeatureExtractor.from_pretrained(number_plate_model_path)
+        self.model = YolosForObjectDetection.from_pretrained(number_plate_model_path)
 
     def make_prediction(self, img) -> list[dict[str]]:
         """
         Make prediction based on input image of vehicle
 
         Parameters:
-        img (Image): PIL Image of the vehicle of the license plate to be detected
+        img (Image): PIL Image of the vehicle of the number plate to be detected
         """
 
         # Set input and tensors
@@ -37,7 +37,7 @@ class PlateExtractor:
 
     def get_bounding_box(self, output_dict, threshold=0.5) -> tuple[int, int, int, int]:
         """
-        Get the physical bounding box of the license plate detected
+        Get the physical bounding box of the number plate detected
         
         Parameters:
         output_dict (str): Prediction directory

@@ -100,7 +100,7 @@ class CharacterExtraction:
         segmented_chars (np.ndarray): Image of segmented characters
         """
 
-        # Get estimations of character contours sizes of cropped license plates
+        # Get estimations of character contours sizes of cropped number plates
         lower_width, upper_width, lower_height, upper_height = self.get_dimension_estimation(segmented_chars)
        
         extracted_characters = []
