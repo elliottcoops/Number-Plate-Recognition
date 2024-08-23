@@ -34,12 +34,14 @@ class PlateExtractor:
         inputs = self.feature_extractor(original_image, return_tensors="pt")
         
         # Pass the inputs through the model to get outputs
+        # Unpack the key, value pairs to get the values
         outputs = self.model(**inputs)
         
         # Compute the original image size and prepare for post processing
+        # tf wants (height, width) input, so we need to reverse PIL image
         img_size = torch.tensor([tuple(reversed(original_image.size))])
         
-        # Post process the raw model outputs and convert to usable results (json)
+        # Post process the raw model outputs and convert to usable results 
         processed_outputs = self.feature_extractor.post_process(outputs, img_size)
 
         return processed_outputs[0]
