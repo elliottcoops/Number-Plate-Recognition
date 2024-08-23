@@ -89,7 +89,7 @@ Constants used during training:
 
 ### Model evaluation
 
-After training, the test set attains an accuracy of 98.7%.
+After training, the test set attains an accuracy of 96.7%.
 
 Looking at the loss and accuracy per epoch we see that there are no signs of overfitting:
 
