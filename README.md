@@ -32,7 +32,7 @@ If you want to run the interactive Flask app, navigate to the `number_plate_app`
 
 If you want to walkthrough the code and see how well it performs on multiple examples, navigate to the `number_plate_code` directory.
 
-1. Open `example.ipynb`
+1. Open `testing_area.ipynb`
 2. Add any test images to `example_data`
 3. Run cells and analyse how well it perfroms
 
