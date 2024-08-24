@@ -32,10 +32,10 @@ class NumberPlateReader:
         # Get the bounding box of the detected plate
         xmin, ymin, xmax, ymax = self.plate_extractor.get_bounding_box(number_plate_prediction)
 
-        # Get the image as an np array
-        number_plate = self.plate_extractor.get_extracted_number_plate_as_np(image, xmin, ymin, xmax, ymax)
+        # Get the extracted number plate
+        extracted_number_plate = self.plate_extractor.get_extracted_number_plate(image, xmin, ymin, xmax, ymax)
 
-        return number_plate
+        return extracted_number_plate
 
     def read_number_plate(self, number_plate, each_stage=False) -> tuple[str, np.ndarray, np.ndarray]:
         """

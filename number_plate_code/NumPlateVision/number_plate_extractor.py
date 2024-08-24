@@ -24,7 +24,7 @@ class PlateExtractor:
         Get number plate from input image
 
         Parameters:
-            original_image (Image): PIL Image of the vehicle of the number plate to be detected
+            original_image (Image/np.ndarray): Image of the vehicle of the number plate to be detected
 
         Returns:
             dict[str]: Dictionary of the bounding boxes scores and labels predicted
@@ -38,15 +38,24 @@ class PlateExtractor:
         outputs = self.model(**inputs)
         
         # Compute the original image size and prepare for post processing
-        # tf wants (height, width) input, so we need to reverse PIL image
-        img_size = torch.tensor([tuple(reversed(original_image.size))])
+        # tf wants (height, width) input
+        image_type = self.get_image_type(original_image)
+        img_size = None
+
+        if image_type == 0:
+            # PIL image format is (width, height) so need to reverse
+            img_size = torch.tensor([tuple(reversed(original_image.size))])
+        elif image_type == 1:
+            img_size = torch.tensor([tuple(original_image.shape[:2])])
+        else:
+            raise Exception("Image must be Numpy array or PIL Image")
         
         # Post process the raw model outputs and convert to usable results 
         processed_outputs = self.feature_extractor.post_process(outputs, img_size)
 
         return processed_outputs[0]
 
-    def get_bounding_box(self, output_dict, threshold=0.5) -> tuple[int, int, int, int]:
+    def get_bounding_box(self, output_dict, threshold=0.5) -> tuple[float, float, float, float]:
         """
         Get the physical bounding box of the number plate detected
         
@@ -55,7 +64,7 @@ class PlateExtractor:
             threshold (float): Threshold of the confidence needed to label bounding box
 
         Returns: 
-            tuple[int, int, int, int]: Tuple of x, y, w, h of the bounding box
+            tuple[float, float, float, float]: Tuple of x, y, w, h of the bounding box
         """
 
         # Get the id2label for the output layer
@@ -85,30 +94,37 @@ class PlateExtractor:
         Extract the number plate from the original image as PIL Image
         
         Parameters: 
-            image (Image): Original image to be extracted from
+            image (Image/np.ndarray): Original image to be extracted from
             xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
 
         Returns:
             Image: Number plate cropped from the original image
         """
 
-        number_plate = image.crop((xmin, ymin, xmax, ymax))
+        image_type = self.get_image_type(image)
 
-        return number_plate
-
-    def get_extracted_number_plate_as_np(self, image, xmin, ymin, xmax, ymax) -> np.ndarray:
-        """
-        Extract the number plate from the original image as np array
+        if image_type == 0:
+            return np.array(image.crop((xmin, ymin, xmax, ymax)))
+        elif image_type == 1:
+            return image[int(ymin):int(ymax), int(xmin):int(xmax)]
+        else:
+            raise Exception("Image must be Numpy array or PIL Image")
         
-        Parameters: 
-            image (Image): Original image to be extracted from
-            xmin, ymin, xmax, ymax (float): Coordinates of the bounding box with (xmin, ymin) being the bottom left of bounding box
+    def get_image_type(self, image):
+        """
+        Get the image type from PIL Image or numpy array (OpenCV)
+
+        Parameters:
+            image (Image/np.ndarray): Image of type to be found
         
-        Returns:
-            np.ndarray: Numpy array of number plate cropped from original image 
+            Returns: 
+            int: Integer code of the type of image
         """
 
-        number_plate = self.get_extracted_number_plate(image, xmin, ymin, xmax, ymax)
-        number_plate_as_np = np.array(number_plate)
-
-        return number_plate_as_np
+        if isinstance(image, Image.Image):
+            return 0
+        elif isinstance(image, np.ndarray):
+            return 1
+        else:
+            return -1 
+        

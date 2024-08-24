@@ -1,7 +1,6 @@
 import cv2 as cv
 import os
 from PIL import Image
-import sys 
 from NumPlateVision.number_plate_reader import NumberPlateReader
 
 class ImageHandler:
@@ -78,7 +77,7 @@ class ImageHandler:
             tuple[str, str, str, str]: Original, segmented, contour plate paths and plate text
         """
 
-        # Read image using PIL for transformers
+        # Read image using PIL 
         image = Image.open(os.path.join(self.upload_path, file_path))
 
         # Extract number plate
