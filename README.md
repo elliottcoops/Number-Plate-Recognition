@@ -1,104 +1,29 @@
-# Number plate recognition research project
+# Number Plate Recognition
 
 ## About
 
-This repository contains a number plate reader with a Flask app, using a YOLO model for number plate extraction and a CNN trained from scratch on an OCR dataset for character recognition.
+This repository contains a custom YOLO model trained from scratch for number plate detection. Using EasyOCR for character recognition, enabling automatic reading of vehicle number plates from videos.
 
-![example_recognition](docs/example_detection.png)
+![Number Plate Recognition Demo](docs/output.gif)
 
-## How to setup
+## ML pipeline
+The number plate recognition pipeline starts with a video frame input. Each frame is passed to YOLO, which detects and tracks number plates by predicting bounding boxes in real time. The detected plate regions are then cropped and passed to EasyOCR, which reads the characters and converts them into text strings. Finally, these recognized strings are displayed on the video.
 
-Assuming you are in the `Number-Plate-Recognition` directory.
+More abstractly, the process involves:
 
-1. Create a Python virtual enviroment using `python3 -m venv venv`
-2. Activate venv using `source venv/bin/activate` for macos or `venv\Scripts\activate` for windows
-3. Install libraries using `pip install -r requirements.txt`
+- **Frame Input:** Raw video frames as the data source.
 
-## Flask app
+- **Detect plates (YOLO):** Locates and follows number plates across frames.
 
-If you want to run the interactive Flask app, navigate to the `number_plate_app` directory.
+- **Crop plates:** Crops plate from the frame. 
 
-1. Run `python3 app.py` to locally host the app
-2. Head to `http://127.0.0.1:5000` in any browser to load 
-3. Choose an image with a number plate in to be recognised
+- **Text Recognition (EasyOCR):** Extracts characters from the detected plate.
 
-![Example upload](docs/example_upload.png)
+- **Construct string:** Join extracted characters together.
 
-4. Upload the image and each stage of the recognition process is shown
+![ML pipeline](docs/ml_pipeline.png)
 
-![Example detection](docs/example_detection.png)
+## Training
 
-## Example notebook
+### YOLO model training
 
-If you want to walkthrough the code and see how well it performs on multiple examples, navigate to the `number_plate_code` directory.
-
-1. Open `testing_area.ipynb`
-2. Add any test images to `example_data`
-3. Run cells and analyse how well it perfroms
-
-![Example notebook](docs/notebook_run.png)
-
-## ML data processing pipeline
-
-The number plate of a car can be obtained by using an object detection model. State of the art currently is YOLO (You Only Look Once) which is a deep CNN. The model used for number plate extraction can be found [here](https://huggingface.co/nickmuchi/yolos-small-finetuned-license-plate-detection) on The Hugging Face.
-
-A number plate can be read by extracting each character from the number plate, passing it into a character recognition CNN model and then stringing together a word.
-
-Each of these stages is explained in more detail below.
-
-### Stage 1 - Plate extraction (YOLO)
-
-The model finds a bounding box of what it thinks is a number plate. With a set confidence level, we can obtain the bounding box predicted by the model, and extract the number plate from the original image.
-
-![Original](docs/original.png) ![Extracted](docs/extracted.png)
-
-
-### Stage 2 - Character segmentation (OpenCV)
-
-One similarity among all number plates is that the letters are black. Therefore, after applying image processing techniques such as edge sharpening using the Laplacian operator and Otsu thresholding, we can create a binary image with the characters as the foreground and everything else as the background.
-
-![Processed](docs/processed.png)
-
-### Stage 3 - Character extraction (OpenCV)
-
-To extract a character, we can use the `contours` method from OpenCV, which identifies foreground objects within an image. This method creates a bounding box around each character, allowing us to extract that portion of the image.
-
-![Contours](docs/contours.png)
-
-### Stage 4 - Character recognition (CNN from scratch, see below)
-
-Once we have the characters, we can feed each one into the model, obtain the predictions, and concatenate them into a string.
-
-![Prediction](docs/prediction.png)
-
-## CNN built from scratch for character recognition (See stage 4 above)
-
-### Training
-
-The neural network is trained on the standard [OCR dataset](https://www.kaggle.com/datasets/preatcher/standard-ocr-dataset) which contains 50k images of characters.
-
-To increase the number of examples, the training data is augmented 5 times per image from a mix of rotation, translation and zooming. This attains a total train set of size 100k.
-
-### Constants
-
-Constants used during training:
-
-- Loss: Categorical crossentropy
-- Epochs: 10
-- Optimiser: Adam
-
-### Model evaluation
-
-After training, the test set attains an accuracy of 96.7%.
-
-Looking at the loss and accuracy per epoch we see that there are no signs of overfitting:
-
-![eval](docs/model_eval.png)
-
-The confusion matrix shows excellent results overall, however classes 0, 4, and 24 had misclassifications with numbers 0, 3, and letter P; adding more training data or augmentation could help improve accuracy.
-
-![cm](docs/cm.png)
-
-In addition, looking at a few test examples: 
-
-![example_test](docs/character_example.png)
