@@ -7,7 +7,7 @@ This repository contains a custom YOLO model trained from scratch for number pla
 ![Number Plate Recognition Demo](docs/output.gif)
 
 ## ML pipeline
-The number plate recognition pipeline starts with a video frame input. Each frame is passed to YOLO, which detects and tracks number plates by predicting bounding boxes in real time. The detected plate regions are then cropped and passed to EasyOCR, which reads the characters and converts them into text strings. Finally, these recognized strings are displayed on the video.
+The number plate recognition pipeline starts with a video frame input. Each frame is passed to YOLO, which detects and tracks number plates by predicting bounding boxes in real time. The detected plate regions are then cropped and passed to EasyOCR, which reads the characters. Finally, these recognised characters are converted to strings and are displayed on the video.
 
 More abstractly, the process involves:
 
