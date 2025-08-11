@@ -40,7 +40,7 @@ The training ran for 30 epochs using the following settings:
 - Batch size: 32  
 - Optimiser: YOLO's default optimiser (based on stochastic gradient descent with momentum)
 
-## Results
+### Results
 
 The model was tested on four random samples were selected and tested against the ground truth performing well.
 
