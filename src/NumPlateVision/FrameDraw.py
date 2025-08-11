@@ -28,14 +28,8 @@ class FrameDraw:
                     cv2.FONT_HERSHEY_SIMPLEX, self.font_scale, (0, 0, 0), self.font_thickness)
 
     def draw_num_plate_reading(self, xmin, ymin, xmax, ymax, plate_text, track_id, frame):
-
-        # Draw bounding box around plate
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
-
-        # Get the label text
         label_text = self.write_label(track_id, plate_text)
-
-        # Draw the label text onto screen
         self.draw_label(frame, xmin, ymin, label_text)
 
         
