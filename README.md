@@ -11,7 +11,7 @@ The number plate recognition pipeline starts with a video frame input. Each fram
 
 More abstractly, the process involves:
 
-- **Frame Input:** Raw video frames as the data source.
+- **Frame Input:** Inputs raw video frames as the data source.
 
 - **Detect plates (YOLO):** Locates and follows plates across frames.
 
@@ -19,7 +19,7 @@ More abstractly, the process involves:
 
 - **Text Recognition (EasyOCR):** Extracts characters from the detected plates.
 
-- **Construct string:** Join extracted characters together.
+- **Construct string:** Joins extracted characters together.
 
 ![ML pipeline](docs/ml_pipeline.png)
 
